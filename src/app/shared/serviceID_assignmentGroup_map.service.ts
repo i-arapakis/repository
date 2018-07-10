@@ -129,9 +129,10 @@ deleteServiceIDAssignmentGroupMapRows(guidList: Array<string>): Observable<boole
 exportToExcel(): Observable<any> {
     return new Observable(obs => {
         var oReq = new XMLHttpRequest();
+        var authUser = JSON.parse(localStorage.getItem('AuthenticatedUser'));
         oReq.open('POST', 'http://localhost/HPSmartContactAdministration/api/HPSCAdmin/exportToExcel', true);
         oReq.setRequestHeader('content-type', 'application/json');
-        oReq.setRequestHeader('authorization', localStorage.getItem('userToken'));
+        oReq.setRequestHeader('authorization', authUser['AuthToken']);
         oReq.responseType = 'arraybuffer';
 
         oReq.onload = function (oEvent) {
