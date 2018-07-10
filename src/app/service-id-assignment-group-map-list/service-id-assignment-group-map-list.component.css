@@ -1,0 +1,23 @@
+select{
+    width: 36%;
+    padding: 0.6%;
+    font-size: small;
+}
+
+a{
+    width: 100%;
+    text-align: left;
+}
+
+table thead{
+    background-color: rgb(#f7f8f9);
+}
+
+table td{
+    vertical-align: middle;
+}
+
+mat-list{
+    width: 15.4em;
+    height: 12.4em;
+}

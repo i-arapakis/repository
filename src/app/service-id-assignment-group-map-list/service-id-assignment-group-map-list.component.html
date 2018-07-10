@@ -1,0 +1,71 @@
+    <div id="serviceIDAssignmentGroupList" style="font-size:xx-small" class="table-responsive">
+      
+      <div class="spinner-container" *ngIf="serviceIDAssignmentGroupDataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <table>
+        <tr>
+          <td align="left"><button (click)="addRow()" mat-button><mat-icon>add</mat-icon>Add new row</button></td>
+          <td align="left"><button (click)="updateSelected()" [disabled]="!hasValue()" mat-button><mat-icon>update</mat-icon>Update selected rows</button></td>
+          <td align="left"><button (click)="deleteSelected()" [disabled]="!hasValue()" mat-button><mat-icon>delete</mat-icon>Delete selected rows</button></td>
+        </tr>
+      </table>
+      
+      <mat-table [dataSource]="serviceIDAssignmentGroupDataSource" matSort>
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <div matTooltip="Select row" >
+              <mat-checkbox (change)="$event?masterToggle():null" [checked]="hasValue() && isAllSelected()" [indeterminate]="hasValue() && !isAllSelected()"></mat-checkbox>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? toggleCheck(row) : null" [checked]="getCheckValue(row)" ></mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="serviceID">
+          <mat-header-cell class="col-sm-4" *matHeaderCellDef mat-sort-header>Service ID</mat-header-cell>
+          <mat-cell class="col-sm-4" *matCellDef="let serviceIDAssignmentGroupMap">
+            <mat-form-field>
+              <mat-select [(value)]="serviceIDAssignmentGroupMap.ServiceID" [(ngModel)]="serviceIDAssignmentGroupMap.ServiceID">
+                  <mat-option *ngFor="let serviceIDs of serviceIDAssignmentGroupMapService.serviceIDList" [value]="serviceIDs.ServiceID">{{ serviceIDs.ServiceID }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="assignmentGroup">
+            <mat-header-cell class="col-sm-12" *matHeaderCellDef mat-sort-header>Assignment Group</mat-header-cell>
+            <mat-cell class="col-sm-12" *matCellDef="let serviceIDAssignmentGroupMap">
+              <mat-form-field style="width: 100%">
+                <input matInput name="assignmentGroup" [value]="serviceIDAssignmentGroupMap.AssignmentGroup" [(ngModel)]="serviceIDAssignmentGroupMap.AssignmentGroup" required maxlength="50">
+              </mat-form-field>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="updateButton">
+            <mat-header-cell class="col-sm-2" *matHeaderCellDef></mat-header-cell>
+            <td mat-cell class="col-sm-2" *matCellDef="let serviceIDAssignmentGroupMap">
+              <div matTooltip="Update row" >
+                <button (click)="updateRow(serviceIDAssignmentGroupMap)" mat-button><mat-icon>update</mat-icon></button>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="deleteButton">
+              <mat-header-cell class="col-sm-2" *matHeaderCellDef>
+                <div matTooltip="Export table to excel" (click)="exportTable()" >
+                  <button mat-button>
+                    <mat-icon>get_app</mat-icon>
+                  </button>
+                </div>
+              </mat-header-cell>
+              <td mat-cell class="col-sm-2" *matCellDef="let serviceIDAssignmentGroupMap">
+                <div matTooltip="Delete row" >
+                  <button (click)="deleteRow(serviceIDAssignmentGroupMap.ID)" mat-button><mat-icon>delete</mat-icon></button>
+                </div>
+              </td>
+            </ng-container>
+          <mat-header-row style="background-color: rgb(202, 206, 205);" *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator [length]="serviceIDAssignmentGroupMapService.serviceID_assignmentGroup_mapList_Length" [pageSize]="3" [pageSizeOptions]="[serviceIDAssignmentGroupMapService.serviceID_assignmentGroup_mapList_Length, 3, 5, 10]" [showFirstLastButtons]="true"></mat-paginator>
+    </div>

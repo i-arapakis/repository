@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+  <mat-toolbar>{{description}}</mat-toolbar>
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-select id="serviceID" placeholder="Service ID" [(ngModel)]="newServiceID" [ngModelOptions]="{standalone: true}" required>
+        <mat-option *ngFor="let x of serviceIDList" [value]="x.ServiceID">{{ x.ServiceID }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput id="assignmentGroup" name="assGroup" #assGroup="ngModel" placeholder="Assignment Group" [(ngModel)]="newAssignmentGroup" [ngModelOptions]="{standalone: true}" required maxlength="50" autocomplete="off">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary" [disabled]="(newAssignmentGroup == '' || newAssignmentGroup == null || newServiceID == null)" (click)="save()">Save</button>
+  </mat-dialog-actions>
+</form>

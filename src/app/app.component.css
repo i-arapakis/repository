@@ -1,0 +1,23 @@
+
+.jumbotron {
+    background-color: lightseagreen;
+    color: white;
+    padding: 0.7em;
+}
+
+
+
+.mat-button {
+    background-color: lightseagreen;
+    color: white;
+    position: absolute;
+    right: 1.5em;
+    border-color: white;
+    border-style: solid;
+    border-width: 0.05em
+}
+
+.username {
+    position: absolute;
+    top: 0.5em;
+}
